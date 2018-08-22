@@ -1,0 +1,36 @@
+{
+  "name": "hardwood_heaven_studios",
+  "version": "1.0.0",
+  "description": "This is an online store for a woodworking business.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chrisjones0517/hardwood_heaven_studios.git"
+  },
+  "keywords": [
+    "woodworking",
+    "crafts",
+    "arts",
+    "hand",
+    "crafted",
+    "hand-crafted",
+    "American-made",
+    "furniture"
+  ],
+  "author": "Chris Jones",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chrisjones0517/hardwood_heaven_studios/issues"
+  },
+  "homepage": "https://github.com/chrisjones0517/hardwood_heaven_studios#readme",
+  "dependencies": {
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "express-handlebars": "^3.0.0",
+    "mongoose": "^5.2.9"
+  }
+}

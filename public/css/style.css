@@ -1,0 +1,39 @@
+.jumbotron {
+    background-image: url('../img/HardwoodHeavenStudiosBG1.jpg');
+    background-size: cover;
+    background-position: center center;
+    height: 83.2vh;
+    margin-bottom: 0;
+    border-radius: 0;
+}
+
+.myLinks {
+    color: #fff;
+    margin-right: 2rem;
+}
+
+.myLinks:hover {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+}
+
+.nav-link {
+    margin-left: 2rem;
+}
+
+footer {
+    text-align: center;
+    height: 10rem;
+}
+
+.usa {
+    margin-left: 1rem;
+    margin-right: 10rem;
+    color: #fff !important;
+}
+
+.flag {
+    margin-left: 2rem;
+}
+
+
