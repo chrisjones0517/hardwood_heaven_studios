@@ -5,10 +5,10 @@
     height: 83.2vh;
     margin-bottom: 0;
     border-radius: 0;
+    text-align: center;
 }
 
 .myLinks {
-    color: #fff;
     margin-right: 2rem;
 }
 
@@ -34,6 +34,24 @@ footer {
 
 .flag {
     margin-left: 2rem;
+}
+
+h1 {
+    color: #fff;
+    font-size: 5rem;
+    text-shadow: 
+    5px 5px 0px #000,
+    5px -5px 0px #000,
+    -5px 5px 0px #000,
+    -5px -5px 0px #000,
+    0px -5px 0px #000,
+    0px 5px 0px #000,
+    5px 0px 0px #000,
+    -5px 0px 0px #000
+}
+
+#regForm > label {
+    width: 5rem;
 }
 
 
