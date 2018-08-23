@@ -1,2 +1,5 @@
-let test = $('.test').css('height');
-console.log(test);
+$('#loginSubmit').on('click', () => {
+    $.get('/users/login', () => {
+        console.log('login route ran');
+    });
+});

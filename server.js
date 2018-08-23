@@ -6,6 +6,10 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv').config();
 const app = express();
 
+const products = require('./routes/products');
+const users = require('./routes/users');
+const gallery = require('./routes/gallery');
+
 mongoose.connect(process.env.MONGO_URI, {useNewUrlParser: true});
 
 const db = mongoose.connection;
@@ -23,10 +27,24 @@ app.set('view engine', 'handlebars');
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use('/static', express.static(path.join(__dirname, 'public')));
+
+app.use('/users', users);
+app.use('/products', products);
+app.use('/gallery', gallery);
 
 app.get('/', (req, res) => {
-    res.render('index');
+    const active = {
+        home: 'active'
+    };
+    res.render('index', active);
+});
+
+app.get('/contact', (req, res) => {
+    const active = {
+        contact: 'active'
+    };
+    res.render('contact', active);
 });
 
 const PORT = process.env.PORT || 3000; 
@@ -34,3 +52,4 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log('Server running on port: ' + PORT);
 });
+

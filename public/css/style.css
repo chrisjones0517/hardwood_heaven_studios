@@ -17,6 +17,10 @@
     text-decoration: none;
 }
 
+.myLinks:visited {
+    text-decoration: none;
+}
+
 .nav-link {
     margin-left: 2rem;
 }
@@ -54,4 +58,10 @@ h1 {
     width: 5rem;
 }
 
+#storeDiv {
+    height: 200rem;
+}
 
+#contactDiv {
+    height: 81.9vh;
+}
