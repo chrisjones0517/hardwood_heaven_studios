@@ -34,15 +34,32 @@
         </button>
       </div>
       <div class="modal-body">
+        <h5 id="regMsg"></h5>
         <form id="regForm">
-            <label>Username</label>
-            <input type="text"><br/><br/>
-            <label>Email</label>
-            <input type="password"><br/><br/>
-            <label>Password</label>
-            <input type="text"><br/><br/>
-            <label>Re-enter Password</label>
-            <input type="password">
+            <table class="table table-borderless">
+                <tbody>
+                    <tr>
+                        <td><label for="usernameReg">Username</label></td>
+                        <td><input type="text" id="usernameReg"></td>
+                        <td><span id="usernameRegErr"></span></td>
+                    </tr>
+                    <tr>
+                        <td><label for="emailReg">Email</label></td>
+                        <td><input type="email" id="emailReg"></td>
+                        <td><span id="emailRegErr"></span></td>
+                    </tr>
+                    <tr>
+                        <td><label for="passwordReg">Password</label></td>
+                        <td><input type="password" id="passwordReg"></td>
+                        <td><span id="passwordRegErr"></span></td>
+                    </tr>
+                    <tr>
+                        <td><label for="password2Reg">Re-enter Password</label></td>
+                        <td><input type="password" id="password2Reg"></td>
+                        <td><span id="password2RegErr"></span></td>
+                    </tr>
+                </tbody>
+            </table>
           </form>
       </div>
       <div class="modal-footer">
