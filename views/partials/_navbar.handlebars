@@ -25,8 +25,11 @@
         <div class="myLinksDiv">
             <a class="myLinks btn btn-primary text-light" data-toggle="modal" data-target="#loginModal">Login</a>
             <a class="myLinks btn btn-primary text-light" data-toggle="modal" data-target="#regModal">Register</a>
+            {{#if admin}}
+                <a class="myLinks btn btn-primary text-light" href="/admin">Admin</a>
+            {{/if}}
             <img class="flag" src="/static/img/usa1-thumb.gif" width="40" alt="U.S. flag">
-            <a class="usa" >Made in the U.S.A.</a>
+            <a class="usa">Made in the U.S.A.</a>
         </div>
     </div>
 </nav>

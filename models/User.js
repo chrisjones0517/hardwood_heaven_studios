@@ -16,6 +16,9 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
+    shippingAddr: {
+        type: String
+    },
     admin: {
         type: Boolean,
         default: false

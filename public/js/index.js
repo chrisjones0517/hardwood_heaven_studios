@@ -48,27 +48,49 @@ $(document).ready(function () {
 
 function registerValidator(username, email, password, password2) {
     let flag = true;
+    let emailPatt = new RegExp(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|museum)\b/g);
+    let emailResult = emailPatt.test(email);
+    let passwordPatt = new RegExp(/.{8,}/g);
+    let passwordResult = passwordPatt.test(password);
+    let passwordPatt2 = new RegExp(/^(?=.*[\d])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*])[\w!@#$%^&*]{8,}$/);
+    // let passwordPatt2 = new RegExp(/\d+[!]+[A-Z]/g);
+    let passwordResult2 = passwordPatt2.test(password);
+
     if (username === '') {
-        emptyValidator('#usernameRegErr', 'Username');
+        validator('#usernameRegErr', 'Username is required!');
         flag = false;
-    }
+    } 
     if (email === '') {
-        emptyValidator('#emailRegErr', 'Email');
+        validator('#emailRegErr', 'Email is required!');
+        flag = false;
+    } else if (!emailResult) {
+        validator('#emailRegErr', 'Email must be valid!');
         flag = false;
     }
     if (password === '') {
-        emptyValidator('#passwordRegErr', 'Password');
+        validator('#passwordRegErr', 'Password is required!');
+        flag = false;
+    } else if (!passwordResult) {
+        validator('#passwordRegErr', 'Password must contain at least 8 characters!');
+        flag = false;
+    } else if (!passwordResult2) {
+        validator('#passwordRegErr', 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character!');
+        flag = false;
+    }  
+    if (password !== password2) {
+        validator('#password2RegErr', 'Passwords must match!');
         flag = false;
     }
     if (password2 === '') {
-        emptyValidator('#password2RegErr', 'Re-enter Password');
+        validator('#password2RegErr', 'Re-enter Password is required!');
         flag = false;
     }
+        
      return flag;
 }
 
-function emptyValidator(id, field) {
-    $(id).text(` ${field} is required!`).removeClass().addClass('text-danger text-center');
+function validator(id, field) {
+    $(id).text(field);
             setTimeout(() => {
                 $(id).empty();
             }, 3000);
