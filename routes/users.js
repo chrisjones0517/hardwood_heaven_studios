@@ -7,8 +7,31 @@ require('../models/User');
 const User = mongoose.model('users');
 
 router.get('/login', (req, res) => {
+    const hbsVars = {
+        admin: true
+    };
+console.log('login get route ran');
+    res.render('index', hbsVars);
+});
+
+router.post('/login', (req, res) => {
+    console.log(req.body.username, req.body.password);
     console.log('login ran');
-    res.sendStatus(200);
+    User.findOne({ username: req.body.username })
+        .where('password').equals(req.body.password)
+        .exec((err, user) => {
+            if (err || user === null) {
+                console.log(err);
+                res.json({ msg: 'That user/password was not found!', error: true })
+            } else {
+                if (user.admin) {
+                    res.json({ admin: true});
+                } else {
+                    console.log('user: ', user);
+                    res.sendStatus(200);
+                }
+            }
+        });
 });
 
 router.post('/register', (req, res) => {
@@ -17,19 +40,23 @@ router.post('/register', (req, res) => {
         email: req.body.email,
         password: req.body.password
     };
-console.log(newUser);
+    console.log(newUser);
     new User(newUser)
         .save((err) => {
             if (err) {
                 console.log(err);
-                res.json({ msg: 'That user already exists!', error: true});
+                res.json({ msg: 'That user already exists!', error: true });
             } else {
-                res.json({msg: 'User added!', success: true});
+                res.json({ msg: 'User added!', success: true });
             }
         });
     console.log('register ran');
     console.log(req.body.username);
     // res.sendStatus(200);
 });
+
+router.get('/admin', (req, res) => {
+    res.render('admin');
+})
 
 module.exports = router;

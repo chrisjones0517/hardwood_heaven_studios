@@ -1,8 +1,60 @@
 $(document).ready(function () {
     $('#loginSubmit').on('click', () => {
-        $.get('/users/login', () => {
-            console.log('login route ran');
-        });
+        const username = $('#usernameLog').val().trim();
+        const password = $('#passLog').val().trim();
+        const user = {
+            username,
+            password
+        };
+        let valid = true;
+        if (username === '') {
+            valid = false;
+            validator('#usernameLogErr', 'Username is required!');
+        }
+        if (password === '') {
+            valid = false;
+            validator('#passLogErr', 'Password is required!');
+        } else if (password.length < 8) {
+            valid = false;
+            validator('#passLogErr', 'Password must contain at least 8 characters!');
+        }
+        if (valid) {
+            $.post('/users/login', user, (data, status) => {
+                if (data.error) {
+                    $('#logMsg').text(data.msg).append('<br/><br/>');
+                    setTimeout(() => {
+                        $('#logMsg').empty();
+                    }, 3000);
+                } else if (data.admin) {
+                    window.location.pathname = '/users/login';
+                    setTimeout(() => {
+                        $('#loginClose').trigger('click');
+                        $('#loginLink').text('Logout');
+                    });
+                    console.log('data.admin', data.admin);
+                } else {
+                    setTimeout(() => {
+                        $('#loginClose').trigger('click');
+                        $('#loginLink').text('Logout');
+                    });
+                }
+            });
+        }
+    });
+
+    $('#loginLink').on('click', () => {
+        const login = $('#loginLink').text();
+        if (login === 'Logout') {
+            console.log('log this user out');
+            $('#loginLink').text('Login');
+
+
+            // $.post('/users/logout', logout, (data, status) => {
+
+            // });
+        } else {
+            $('#loginModal').modal('show');
+        }
     });
 
     $('#regSubmit').on('click', () => {
@@ -18,7 +70,7 @@ $(document).ready(function () {
         };
 
         const validate = registerValidator(username, email, password, password2);
-        
+
         if (validate) {
             $.post('/users/register', newUser, (data, status) => {
                 // console.log("Data: ", data, "\nStatus: ", status);
@@ -29,8 +81,7 @@ $(document).ready(function () {
                     setTimeout(() => {
                         $('#regMsg').empty();
                     }, 3000);
-                }
-                else {
+                } else {
                     msg.removeClass().addClass('text-success text-center');
                     $('#usernameReg').val('');
                     $('#emailReg').val('');
@@ -38,12 +89,31 @@ $(document).ready(function () {
                     $('#password2Reg').val('');
                     setTimeout(() => {
                         $('#regMsg').empty();
+                        $('#regModal').modal('hide');
                     }, 3000);
                 }
 
             });
-        } 
+        }
     });
+
+    $('#addProduct').on('click', () => {
+        const prodName = $('#prodName').val().trim();
+        const prodDesc = $('#prodDesc').val().trim();
+        const prodImg = $('#prodImg').val().trim();
+        const prodPrice = $('#prodPrice').val().trim();
+        const newProduct = {
+            prodName,
+            prodDesc,
+            prodImg,
+            prodPrice
+        };     
+
+        $.post('/admin/addProduct', newProduct, (data, status) => {
+
+        });
+    });
+
 });
 
 function registerValidator(username, email, password, password2) {
@@ -59,7 +129,7 @@ function registerValidator(username, email, password, password2) {
     if (username === '') {
         validator('#usernameRegErr', 'Username is required!');
         flag = false;
-    } 
+    }
     if (email === '') {
         validator('#emailRegErr', 'Email is required!');
         flag = false;
@@ -76,7 +146,7 @@ function registerValidator(username, email, password, password2) {
     } else if (!passwordResult2) {
         validator('#passwordRegErr', 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character!');
         flag = false;
-    }  
+    }
     if (password !== password2) {
         validator('#password2RegErr', 'Passwords must match!');
         flag = false;
@@ -85,23 +155,14 @@ function registerValidator(username, email, password, password2) {
         validator('#password2RegErr', 'Re-enter Password is required!');
         flag = false;
     }
-        
-     return flag;
+
+    return flag;
 }
 
 function validator(id, field) {
     $(id).text(field);
-            setTimeout(() => {
-                $(id).empty();
-            }, 3000);
+    setTimeout(() => {
+        $(id).empty();
+    }, 3000);
 }
-// let patt = new RegExp(/\w+/i);
-//         let result = patt.test(username);
-//         console.log(result);
 
-
-        // $('#regMsg').text('Passwords do not match!').removeClass().addClass('text-danger text-center').append('<br/><br/>');
-        // setTimeout(() => {
-        //     $('#regMsg').empty();
-        // }, 3000);
-    

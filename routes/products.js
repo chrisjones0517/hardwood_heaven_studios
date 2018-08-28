@@ -4,14 +4,24 @@ const mongoose = require('mongoose');
 
 require('../models/Product');
 
-const User = mongoose.model('products');
+const Product = mongoose.model('products');
 
 router.get('/store', (req, res) => {
-    const active = {
-        store: 'active'
+    const hbsVars = {
+        store: 'active',
+        products: '',
+        test: [{value: 'test 1'}, {value: 'test 2'}, {value: 'test 3'}]
     };
-    console.log('store ran');
-    res.render('store', active);
+
+    Product.find().exec((err, products) => {
+        if (err) {
+            res.json({error: 'There was an error processing your request.'});
+        }
+        hbsVars.products = products;
+        res.render('store', hbsVars);
+    });
+    
+    
 });
 
 module.exports = router;

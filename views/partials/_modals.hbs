@@ -9,15 +9,24 @@
         </button>
       </div>
       <div class="modal-body">
-          <form>
-              <label for="username">Username</label>
-              <input type="text" id="usernameLog"><br/><br/>
-              <label for="passLog">Password&nbsp;</label>
-              <input type="password" id="passLog">
-          </form>
+          <h5 id="logMsg" class="text-danger text-center"></h5>
+          <table class="table table-borderless"> 
+              <tbody>
+                  <tr>
+                      <td><label for="username">Username</label></td>
+                      <td><input type="text" id="usernameLog" maxlength="50"></td>
+                      <td><span id="usernameLogErr" class="text-danger text-center"></span></td>
+                  </tr>
+                  <tr>
+                      <td><label for="passLog">Password&nbsp;</label></td>
+                      <td><input type="password" id="passLog" maxlength="50"></td>
+                      <td><span id="passLogErr" class="text-danger text-center"></span></td>
+                  </tr>
+              </tbody>
+          </table>     
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" id="loginClose" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button" id="loginSubmit" class="btn btn-primary">Submit</button>
       </div>
     </div>
@@ -84,7 +93,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" id="cartSubmit" class="btn btn-primary">Submit</button>
+        <button type="button" id="cartSubmit" class="btn btn-primary">Checkout</button>
       </div>
     </div>
   </div>

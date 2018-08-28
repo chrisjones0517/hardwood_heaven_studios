@@ -7,11 +7,11 @@ const mongoose = require('mongoose');
 // const Gallery = mongoose.model('gallery');
 
 router.get('/', (req, res) => {
-    const active = {
+    const items = {
         gallery: 'active'
     };
     console.log('gallery ran');
-    res.render('gallery', active);
+    res.render('gallery', items);
 });
 
 module.exports = router;
