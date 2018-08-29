@@ -57,3 +57,29 @@ h1 {
 #contactDiv {
     height: 81.9vh;
 }
+
+.admin-container {
+    width: 80vw;
+    margin: auto;
+}
+
+.modify-icons {
+    font-size: 3rem;
+}
+
+.fa-trash {
+    color: #ff0000;
+}
+
+.fa-trash:hover {
+    color: #aa0000;
+}
+
+.update-product {
+    color: #007bff;
+}
+
+.update-product:hover {
+    color: #0055aa;
+    cursor: pointer;
+}

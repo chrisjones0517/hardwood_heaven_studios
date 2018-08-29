@@ -98,3 +98,64 @@
     </div>
   </div>
 </div>
+
+<div class="modal fade" id="update-product-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Update Product</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h5 id="update-product-msg"></h5>
+        <form id="update-product-form">
+            <table class="table table-borderless">
+                <tbody>
+                    <tr>
+                        <td><label for="update-product-name">Name</label></td>
+                        <td><input type="text" id="update-product-name" size="45"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="update-product-desc">Description</label></td>
+                        <td><input type="text" id="update-product-desc" size="45"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="update-product-image">Image Link</label></td>
+                        <td><input type="text" id="update-product-image" size="45"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="update-product-price">Price</label></td>
+                        <td><input type="text" id="update-product-price" size="45"></td>
+                    </tr>
+                </tbody>
+            </table>
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" id="update-product-submit" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="error-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Error!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <p class="text-danger">There was an error processing your request.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

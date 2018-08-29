@@ -107,10 +107,65 @@ $(document).ready(function () {
             prodDesc,
             prodImg,
             prodPrice
-        };     
+        };
 
         $.post('/admin/addProduct', newProduct, (data, status) => {
 
+        });
+    });
+
+    $('.update-product').on('click', function () {
+        const id = $(this).attr('data-attr-1');
+        const name = $(this).attr('data-attr-2');
+        const desc = $(this).attr('data-attr-3');
+        const image = $(this).attr('data-attr-4');
+        const price = $(this).attr('data-attr-5');
+
+        $('#update-product-modal').modal('show');
+
+        $('#update-product-msg').text(id);
+        $('#update-product-name').val(name);
+        $('#update-product-desc').val(desc);
+        $('#update-product-image').val(image);
+        $('#update-product-price').val(price);
+    });
+
+    $('#update-product-submit').on('click', () => {
+        const update = {
+            _id: $('#update-product-msg').text(),
+            name: $('#update-product-name').val(),
+            description: $('#update-product-desc').val(),
+            image: $('#update-product-image').val(),
+            price: $('#update-product-price').val()
+        };
+
+        $.post('/admin/update', update, (data, status) => {
+            console.log(data);
+            if (data.error) {
+                $('#update-product-msg').addClass('text-danger').text('There was an error processing your request.');
+                setTimeout(() => {
+                    $('#update-product-msg').removeClass().empty();
+                }, 3000);
+            } else {
+                console.log('update else ran');
+                $('#update-product-msg').addClass('text-success').text('Product was updated!');
+                setTimeout(() => {
+                    $('#update-product-msg').removeClass().empty();
+                    $('#update-product-modal').modal('hide');
+                    location.reload();
+                }, 3000);
+            }
+        });
+    });
+
+    $('.delete-product').on('click', function () {
+        const id = $(this).attr('data-attr');
+        $.post('/admin/delete', {id}, (data, status) => {
+            if (data.error) {
+                $('#error-modal').modal('show');
+            } else {
+                location.reload();
+            }
         });
     });
 
