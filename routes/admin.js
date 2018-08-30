@@ -22,21 +22,20 @@ router.get('/', (req, res) => {
 });
 
 router.post('/addProduct', (req, res) => {
-    console.log(req.body.prodImg);
-    // const newProd = new Product({
-    //     name: req.body.prodName,
-    //     description: req.body.prodDesc,
-    //     price: req.body.prodPrice,
-    //     image: req.body.prodImg
-    // });
-    // newProd.save((err) => {
-    //     if (err) {
-    //         console.log(err);
-    //         res.json({ error: true });
-    //     } else {
-    //         res.json({ success: true });
-    //     }
-    // });
+    const newProd = new Product({
+        name: req.body.prodName,
+        description: req.body.prodDesc,
+        price: req.body.prodPrice,
+        image: req.body.prodImg
+    });
+    newProd.save((err) => {
+        if (err) {
+            console.log(err);
+            res.json({ error: true });
+        } else {
+            res.json({ success: true });
+        }
+    });
 });
 
 router.post('/update', (req, res) => {

@@ -1,4 +1,7 @@
 $(document).ready(function () {
+
+    let cartItemCount = 0;
+
     $('#loginSubmit').on('click', () => {
         const username = $('#usernameLog').val().trim();
         const password = $('#passLog').val().trim();
@@ -110,7 +113,11 @@ $(document).ready(function () {
         };
 
         $.post('/admin/addProduct', newProduct, (data, status) => {
-
+            if (data.error) {
+                $('#error-modal').modal('show');
+            } else {
+                location.reload();
+            }
         });
     });
 
@@ -160,13 +167,63 @@ $(document).ready(function () {
 
     $('.delete-product').on('click', function () {
         const id = $(this).attr('data-attr');
-        $.post('/admin/delete', {id}, (data, status) => {
+        $.post('/admin/delete', { id }, (data, status) => {
             if (data.error) {
                 $('#error-modal').modal('show');
             } else {
                 location.reload();
             }
         });
+    });
+
+    $('.add-to-cart').on('click', function () {
+        const name = $(this).siblings('.store-product-name').text();
+        const price = $(this).siblings('p').last().children().text();
+        const status = $('#cart-modal-body').attr('data-attr');
+        cartItemCount++;
+        $('#cartModal').modal('show');
+        if (status === 'empty') {
+            $('.fa-shopping-cart').addClass('shopping-cart-occupied');
+            $('#cart-modal-body').empty().append(`
+            <table class="table table-borderless">
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Price</th>
+                        <th>Qty</th>
+                    </tr>
+                </thead>
+                <tbody id="cart-table-body">
+                    <tr>
+                        <td>${name}</td>
+                        <td>$${price}</td>
+                        <td><input type="number" value="1" min="1" class="cart-qty">
+                        <td><a class="remove-cart-item">&#x274C;</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        `).attr('data-attr', '');
+        } else {
+            $('#cart-table-body').append(`
+                <tr>
+                    <td>${name}</td>
+                    <td>$${price}</td>
+                    <td><input type="number" value="1" min="1" class="cart-qty"></td>
+                    <td><a class="remove-cart-item">&#x274C;</a></td>
+                </tr>
+            `);
+        }
+    });
+
+    $(document).on('click', '.remove-cart-item', function() {
+        cartItemCount--;
+        console.log('the remove item was clicked');
+        $(this).parent().parent().remove();
+        if (!cartItemCount) {
+            $('#cart-modal-body').empty().append('<p>Your cart is empty.</p>');
+            $('.fa-shopping-cart').removeClass('shopping-cart-occupied');
+            $('#cart-modal-body').attr('data-attr', 'empty');
+        }
     });
 
 });

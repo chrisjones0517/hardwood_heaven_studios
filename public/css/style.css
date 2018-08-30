@@ -83,3 +83,20 @@ h1 {
     color: #0055aa;
     cursor: pointer;
 }
+
+.shopping-cart-occupied {
+    color: #00ff00;
+}
+
+.shopping-cart-occupied:hover {
+    color: #00bb00;
+}
+
+.cart-qty {
+    width: 50px;
+}
+
+.remove-cart-item:hover {
+    cursor: pointer;
+    background: #faa;
+}

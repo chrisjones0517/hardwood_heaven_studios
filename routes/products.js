@@ -10,8 +10,13 @@ router.get('/store', (req, res) => {
     const hbsVars = {
         store: 'active',
         products: '',
-        test: [{value: 'test 1'}, {value: 'test 2'}, {value: 'test 3'}]
+        cart: ''
     };
+
+    // if (loggedInUser) {
+    //     query users for previous cart
+    //     and set cart variable
+    // }
 
     Product.find().exec((err, products) => {
         if (err) {
