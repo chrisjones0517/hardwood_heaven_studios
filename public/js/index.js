@@ -217,13 +217,17 @@ $(document).ready(function () {
 
     $(document).on('click', '.remove-cart-item', function() {
         cartItemCount--;
-        console.log('the remove item was clicked');
         $(this).parent().parent().remove();
         if (!cartItemCount) {
             $('#cart-modal-body').empty().append('<p>Your cart is empty.</p>');
             $('.fa-shopping-cart').removeClass('shopping-cart-occupied');
             $('#cart-modal-body').attr('data-attr', 'empty');
         }
+    });
+
+    $('#cartSubmit').on('click', () => {
+        $('#cartModal').modal('hide');
+        $('#payment-modal').modal('show');
     });
 
 });
@@ -235,7 +239,6 @@ function registerValidator(username, email, password, password2) {
     let passwordPatt = new RegExp(/.{8,}/g);
     let passwordResult = passwordPatt.test(password);
     let passwordPatt2 = new RegExp(/^(?=.*[\d])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*])[\w!@#$%^&*]{8,}$/);
-    // let passwordPatt2 = new RegExp(/\d+[!]+[A-Z]/g);
     let passwordResult2 = passwordPatt2.test(password);
 
     if (username === '') {
