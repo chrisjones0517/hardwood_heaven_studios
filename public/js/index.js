@@ -230,6 +230,15 @@ $(document).ready(function () {
         $('#payment-modal').modal('show');
     });
 
+    $('.card-img-top').on('click', function() {
+        const imgSrc = $(this).attr('src');
+        $('#image-modal-body').empty().append(`
+            <img src="${imgSrc}" width="795">
+        `);
+        $('#image-zoom-modal').modal('show');
+        
+    });
+
 });
 
 function registerValidator(username, email, password, password2) {
