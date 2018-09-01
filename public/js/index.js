@@ -233,7 +233,7 @@ $(document).ready(function () {
     $('.card-img-top').on('click', function() {
         const imgSrc = $(this).attr('src');
         $('#image-modal-body').empty().append(`
-            <img class="image-zoom" src="${imgSrc}" width="795">
+            <img class="image-zoom" src="${imgSrc}">
         `);
         $('#image-zoom-modal').modal('show');
         

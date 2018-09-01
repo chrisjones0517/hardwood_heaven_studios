@@ -25,6 +25,10 @@
     margin-left: 2rem;
 }
 
+#spacer {
+    height: 3.5rem;
+}
+
 footer {
     text-align: center;
     height: 10rem;
@@ -56,6 +60,7 @@ h1 {
 
 #contactDiv {
     height: 81.9vh;
+    background-image: linear-gradient(#4b2688, #3198b8);
 }
 
 .admin-container {
@@ -105,8 +110,28 @@ h1 {
     cursor: pointer;
 }
 
+.image-zoom {
+    width: 795px;
+}
+
+#contact-form-div {
+    width: 70%;
+}
+
+#contact-title {
+    font-size: 4rem;
+    font-weight: 300;
+    color: #fff;
+}
+
 @media only screen and (max-width: 1000px) {
-    #image-modal-body {
-        overflow: scroll;
+    .image-zoom {
+        width: 400px;
+    }
+}
+
+@media only screen and (max-width: 421px) {
+    .image-zoom {
+        width: 80vw;
     }
 }
