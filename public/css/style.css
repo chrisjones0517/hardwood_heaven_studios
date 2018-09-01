@@ -104,3 +104,9 @@ h1 {
 .card-img-top:hover {
     cursor: pointer;
 }
+
+@media only screen and (max-width: 1000px) {
+    #image-modal-body {
+        overflow: scroll;
+    }
+}
