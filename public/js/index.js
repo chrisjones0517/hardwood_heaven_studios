@@ -371,35 +371,28 @@ function getGalleryImages() {
             }
         }, 3000);
 
-        let clicked;
         $('#back-arrow').on('click', () => {
-            if (clicked === 'next' && i !== 0) {
+            if (i === 0) {
+                i = images.length - 1;
+            } else {
                 i--;
             }
-            clicked = 'back';
-            if (i !== 0) {
-                i--;
-            }
+            
             $('#gallery-div').empty();
             $('#gallery-div').append(`<img class="gallery-image" src=${images[i].src}>`);
             clearInterval(galleryAutoIndex);
-            if (i === 0) {
-                i = images.length - 1;
-            }
         });
 
         $('#next-arrow').on('click', () => {
-            if (clicked === 'back' && i !== images.length - 1) {
+            if (i === images.length - 1) {
+                i = 0;
+            } else {
                 i++;
             }
-            clicked = 'next';
+            
             $('#gallery-div').empty();
             $('#gallery-div').append(`<img class="gallery-image" src=${images[i].src}>`);
             clearInterval(galleryAutoIndex);
-            i++;
-            if (i === images.length) {
-                i = 0;
-            }
         });
     });
 }
