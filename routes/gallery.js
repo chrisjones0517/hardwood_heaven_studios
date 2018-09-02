@@ -20,7 +20,7 @@ router.get('/', (req, res) => {
     const hbsVars = {
         gallery: 'active'
     };
-    console.log('gallery link ran');
+    
     res.render('gallery', hbsVars);    
 });
 

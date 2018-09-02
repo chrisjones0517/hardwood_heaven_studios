@@ -1,7 +1,6 @@
 $(document).ready(function () {
 
     let cartItemCount = 0;
-
     getGalleryImages();
 
     $('#loginSubmit').on('click', () => {
@@ -354,17 +353,16 @@ function validator(id, field) {
 
 function getGalleryImages() {
     $.get('/gallery/loadImages', (data, status) => {
-        console.log(data.imageLinks);
         let linkArr = data.imageLinks;
         let images = new Array();
-        console.log(typeof linkArr[0].image);
+        
         for (let j = 0; j < linkArr.length; j++) {
             images[j] = new Image();
             images[j].src = linkArr[j].image;
         }
         let i = 0;
-        
-        setInterval(() => {
+
+        let galleryAutoIndex = setInterval(() => {
             $('#gallery-div').empty();
             $('#gallery-div').append(`<img class="gallery-image" src=${images[i].src}>`);
             i++;
@@ -372,5 +370,36 @@ function getGalleryImages() {
                 i = 0;
             }
         }, 3000);
+
+        let clicked;
+        $('#back-arrow').on('click', () => {
+            if (clicked === 'next' && i !== 0) {
+                i--;
+            }
+            clicked = 'back';
+            if (i !== 0) {
+                i--;
+            }
+            $('#gallery-div').empty();
+            $('#gallery-div').append(`<img class="gallery-image" src=${images[i].src}>`);
+            clearInterval(galleryAutoIndex);
+            if (i === 0) {
+                i = images.length - 1;
+            }
+        });
+
+        $('#next-arrow').on('click', () => {
+            if (clicked === 'back' && i !== images.length - 1) {
+                i++;
+            }
+            clicked = 'next';
+            $('#gallery-div').empty();
+            $('#gallery-div').append(`<img class="gallery-image" src=${images[i].src}>`);
+            clearInterval(galleryAutoIndex);
+            i++;
+            if (i === images.length) {
+                i = 0;
+            }
+        });
     });
 }

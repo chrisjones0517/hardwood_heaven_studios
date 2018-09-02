@@ -35,6 +35,7 @@ footer {
 }
 
 .usa {
+    display: inline-block;
     margin-left: 1rem;
     margin-right: 10rem;
     color: #fff !important;
@@ -153,15 +154,12 @@ h1 {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-}
-
-.arrow-icon {
     color: #007bff;
     font-size: 3rem;
     cursor: pointer;
 }
 
-.arrow-icon:hover {
+.image-btn:hover {
     color: #0055aa;
 }
 
