@@ -132,12 +132,37 @@ h1 {
 .gallery-image {
     margin-bottom: 2rem;
     margin-top: 2rem;
-    width: 80vw;
+    width: 62.7rem;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
 }
 
 #gallery-div {
     text-align: center;
+}
+
+.row {
+    margin: 0;
+    padding: 0;
+}
+
+.image-btn {
+    border: none;
+    background: none;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.arrow-icon {
+    color: #007bff;
+    font-size: 3rem;
+    cursor: pointer;
+}
+
+.arrow-icon:hover {
+    color: #0055aa;
 }
 
 @media only screen and (max-width: 1000px) {
