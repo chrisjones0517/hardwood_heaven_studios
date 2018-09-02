@@ -3,12 +3,15 @@ const router = express.Router();
 const mongoose = require('mongoose');
 
 require('../models/Product');
+require('../models/Gallery');
 
 const Product = mongoose.model('products');
+const Gallery = mongoose.model('gallery');
 
 router.get('/', (req, res) => {
     const hbsVars = {
-        products: ''
+        products: '',
+        galleryImages: ''
     };
 
     Product.find().exec((err, products) => {
@@ -16,7 +19,14 @@ router.get('/', (req, res) => {
             res.json(err);
         } else {
             hbsVars.products = products;
-        res.render('admin', hbsVars);
+            Gallery.find().exec((err, gallery) => {
+                if (err) {
+                    res.json(err);
+                } else {
+                    hbsVars.galleryImages = gallery;
+                    res.render('admin', hbsVars);
+                }
+            });
         }
     });
 });
@@ -57,4 +67,29 @@ router.post('/delete', (req, res) => {
         }
     });
 });
+
+router.post('/addImage', (req, res) => {
+    const newImage = new Gallery({
+        image: req.body.galleryImageInput
+    });
+    newImage.save((err) => {
+        if (err) {
+            console.log(err);
+            res.json({ error: true });
+        } else {
+            res.json({ success: true });
+        }
+    });
+});
+
+router.post('/deleteImage', (req, res) => {
+    Gallery.findByIdAndDelete(req.body.id, (err, data) => {
+        if (err) {
+            res.json({ error: true });
+        } else {
+            res.sendStatus(200);
+        }
+    });
+});
+
 module.exports = router;

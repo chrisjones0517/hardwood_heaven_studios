@@ -2,16 +2,26 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 
-// require('../models/Gallery');
+require('../models/Gallery');
 
-// const Gallery = mongoose.model('gallery');
+const Gallery = mongoose.model('gallery');
+
+router.get('/loadImages', (req, res) => {
+    Gallery.find().exec((err, imageLinks) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.json({imageLinks});
+        }
+    });
+});
 
 router.get('/', (req, res) => {
-    const items = {
+    const hbsVars = {
         gallery: 'active'
     };
-    console.log('gallery ran');
-    res.render('gallery', items);
+    console.log('gallery link ran');
+    res.render('gallery', hbsVars);    
 });
 
 module.exports = router;

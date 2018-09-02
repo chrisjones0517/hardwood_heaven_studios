@@ -22,12 +22,11 @@ router.get('/store', (req, res) => {
     Product.find().exec((err, products) => {
         if (err) {
             res.json({error: 'There was an error processing your request.'});
+        } else {
+            hbsVars.products = products;
+            res.render('store', hbsVars);
         }
-        hbsVars.products = products;
-        res.render('store', hbsVars);
     });
-    
-    
 });
 
 router.post('/payment', (req, res) => {

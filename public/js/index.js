@@ -2,6 +2,8 @@ $(document).ready(function () {
 
     let cartItemCount = 0;
 
+    getGalleryImages();
+
     $('#loginSubmit').on('click', () => {
         const username = $('#usernameLog').val().trim();
         const password = $('#passLog').val().trim();
@@ -121,6 +123,21 @@ $(document).ready(function () {
         });
     });
 
+    $('#add-gallery-image').on('click', () => {
+        const galleryImageInput = $('#galleryImageInput').val().trim();
+        const newImage = {
+            galleryImageInput
+        };
+
+        $.post('/admin/addImage', newImage, (data, status) => {
+            if (data.error) {
+                $('#error-modal').modal('show');
+            } else {
+                location.reload();
+            }
+        });
+    });
+
     $('.update-product').on('click', function () {
         const id = $(this).attr('data-attr-1');
         const name = $(this).attr('data-attr-2');
@@ -176,6 +193,17 @@ $(document).ready(function () {
         });
     });
 
+    $('.delete-gallery-image').on('click', function () {
+        const id = $(this).attr('data-attr');
+        $.post('/admin/deleteImage', { id }, (data, status) => {
+            if (data.error) {
+                $('#error-modal').modal('show');
+            } else {
+                location.reload();
+            }
+        });
+    });
+
     $('.add-to-cart').on('click', function () {
         const name = $(this).siblings('.store-product-name').text();
         const price = $(this).siblings('p').last().children().text();
@@ -215,7 +243,7 @@ $(document).ready(function () {
         }
     });
 
-    $(document).on('click', '.remove-cart-item', function() {
+    $(document).on('click', '.remove-cart-item', function () {
         cartItemCount--;
         $(this).parent().parent().remove();
         if (!cartItemCount) {
@@ -230,13 +258,47 @@ $(document).ready(function () {
         $('#payment-modal').modal('show');
     });
 
-    $('.card-img-top').on('click', function() {
+    $('.card-img-top').on('click', function () {
         const imgSrc = $(this).attr('src');
         $('#image-modal-body').empty().append(`
             <img class="image-zoom" src="${imgSrc}">
         `);
         $('#image-zoom-modal').modal('show');
-        
+
+    });
+
+    $('#contact-submit').on('click', (e) => {
+        e.preventDefault();
+        const email = $('#contact-email').val().trim();
+        const emailPatt = new RegExp(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|museum)\b/g);
+        const emailResult = emailPatt.test(email);
+        const message = {
+            name: $('#contact-name').val().trim(),
+            email: $('#contact-email').val().trim(),
+            subject: $('#contact-subject').val().trim(),
+            msg: $('#contact-message').val().trim()
+        };
+        if (!emailResult) {
+            $('#contact-email-error').text('Email address must be valid!');
+            setTimeout(() => {
+                $('#contact-email-error').text('');
+            }, 3000);
+        } else {
+            $.post('/contact/message', message, (data, status) => {
+                if (data.success) {
+                    $('#contact-msg').addClass('text-light').text('Message sent!');
+                    $('#contact-name').val('');
+                    $('#contact-email').val('');
+                    $('#contact-subject').val('');
+                    $('#contact-message').val('');
+                } else {
+                    $('#contact-msg').addClass('text-danger').text('There was an error processing your request.');
+                }
+                setTimeout(() => {
+                    $('#contact-msg').removeClass('text-danger, text-light').text('');
+                }, 3000);
+            });
+        }
     });
 
 });
@@ -290,3 +352,25 @@ function validator(id, field) {
     }, 3000);
 }
 
+function getGalleryImages() {
+    $.get('/gallery/loadImages', (data, status) => {
+        console.log(data.imageLinks);
+        let linkArr = data.imageLinks;
+        let images = new Array();
+        console.log(typeof linkArr[0].image);
+        for (let j = 0; j < linkArr.length; j++) {
+            images[j] = new Image();
+            images[j].src = linkArr[j].image;
+        }
+        let i = 0;
+        
+        setInterval(() => {
+            $('#gallery-div').empty();
+            $('#gallery-div').append(`<img class="gallery-image" src=${images[i].src}>`);
+            i++;
+            if (i === images.length) {
+                i = 0;
+            }
+        }, 3000);
+    });
+}

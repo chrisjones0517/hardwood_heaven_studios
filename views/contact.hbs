@@ -1,21 +1,26 @@
 <div id="contactDiv">
     <div id="contact-form-div" class="mx-auto">
         <h2 id="contact-title" class="pt-5 text-center mb-3">Contact Us</h2>
-        <p class="text-light text-center">Got a question? We'd lover to hear from you. Send us a message and we'll respond as soon as possible.</p>
+        <p class="text-light text-center">Got a question? We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
         <form>
             <div class="form-group">
-                <label class="text-light" for="contact-name">Name*</label>
-                <input type="text" class="form-control" id="contact-name">
+                <label class="text-light" for="contact-name">Name</label>
+                <input type="text" class="form-control" id="contact-name" name="name" required="true">
             </div>
             <div class="form-group">
-                <label class="text-light" for="contact-email">Email Address*</label>
-                <input type="text" class="form-control" id="contact-email">
+                <label class="text-light" for="contact-email">Email Address</label><span id="contact-email-error" class="text-danger ml-5"></span>
+                <input type="text" class="form-control" id="contact-email" name="email" required="true">
+            </div>
+            <div class="form-group">
+                <label class="text-light" for="contact-subject">Subject</label>
+                <input type="text" class="form-control" id="contact-subject" name="subject" required="true">
             </div>
             <div class="form-group">
                 <label class="text-light" for="contact-message">Message</label>
-                <textarea rows="4" class="form-control" id="contact-message"></textarea>
+                <textarea rows="4" class="form-control" id="contact-message" name="message" required="true"></textarea>
             </div>
-            <button type="submit" class="btn btn-primary btn-block">Send Message</button>
+            <button id="contact-submit" class="btn btn-primary btn-block">Send Message</button>
         </form>
+        <h2 id="contact-msg" class="mt-5 text-center"></h2>
     </div>
 </div>
